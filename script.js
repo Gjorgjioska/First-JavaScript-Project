@@ -11,9 +11,10 @@ document.querySelector('.guess').value = 23;
 console.log(document.querySelector('.guess').value);
 */
 
-let sicretNumber = Math.trunc(Math.random() * 20) + 1;
-document.querySelector('.number').textContent = sicretNumber;
+let secretNumber = Math.trunc(Math.random() * 20) + 1;
+document.querySelector('.number').textContent = secretNumber;
 let score = 20;
+let highscore = 0;
 
 document.querySelector('.check').addEventListener('click', function () {
   const guess = Number(document.querySelector('.guess').value);
@@ -23,14 +24,19 @@ document.querySelector('.check').addEventListener('click', function () {
     document.querySelector('.message').textContent = 'No number!';
 
     //When player wins
-  } else if (guess === sicretNumber) {
+  } else if (guess === secretNumber) {
     document.querySelector('.message').textContent = 'Correct Number!';
 
     document.querySelector('body').style.backgroundColor = '#60b347';
     document.querySelector('.number').style.width = '30rem';
 
+    if (score > highscore) {
+      highscore = score;
+      document.querySelector('.highscore').textContent = highscore;
+    }
+
     //when player is too high
-  } else if (guess > sicretNumber) {
+  } else if (guess > secretNumber) {
     if (score > 1) {
       document.querySelector('.message').textContent = 'Too high!';
       score--;
@@ -41,7 +47,7 @@ document.querySelector('.check').addEventListener('click', function () {
     }
 
     //when player is too low
-  } else if (guess < sicretNumber) {
+  } else if (guess < secretNumber) {
     if (score > 1) {
       document.querySelector('.message').textContent = 'Too low!';
       score--;
@@ -54,7 +60,7 @@ document.querySelector('.check').addEventListener('click', function () {
 });
 document.querySelector('.again').addEventListener('click', function () {
   score = 20;
-  sicretNumber = Math.trunc(Math.random() * 20) + 1;
+  secretNumber = Math.trunc(Math.random() * 20) + 1;
 
   document.querySelector('.message').textContent = 'Start Guessing...!';
 
